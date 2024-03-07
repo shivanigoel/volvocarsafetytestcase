@@ -23,10 +23,28 @@ class Safety {
         await element.waitForExist();
     }
 
-    async scrollIntoView(elementLocator) {
-        const element = await this.page.locator(elementLocator);
-        await element.scrollIntoViewIfNeeded();
+    async scrollIntoView(element, block = 'center') {
+        await this.page.evaluate(async ({ selector, block }) => {
+            const targetElement = document.querySelector(selector);
+
+            if (targetElement) {
+                await new Promise((resolve) => {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                resolve();
+                                observer.disconnect();
+                            }
+                        });
+                    }, { rootMargin: '0px', threshold: 0.5, root: null, block });
+                    observer.observe(targetElement);
+                });
+            } else {
+                throw new Error(`Element with selector '${selector}' not found`);
+            }
+        }, { selector: element, block });
     }
+
 
 
     async moveToElement(element) {

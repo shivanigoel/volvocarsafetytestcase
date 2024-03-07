@@ -15,7 +15,7 @@ const expectedMenuOptions = [
 ];
 
 for (const device of devicesToTest) {
-    const deviceName = device.name || 'Unknown Device';
+    const deviceName = device.name || 'Device';
     test(`Test on ${deviceName}`, async ({ page }) => {
         const volvoCarsPage = new VolvoCarsPage(page);
         const menu = new MenuOption(page);
