@@ -1,0 +1,31 @@
+# kubernetes/kubernetes-config.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: volvocarsafetytest-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: volvocarsafetytest
+  template:
+    metadata:
+      labels:
+        app: volvocarsafetytest
+    spec:
+      containers:
+      - name: volvocarsafetytest-container
+        image: your-registry/volvocarsafetytest-suite:latest
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: volvocarsafetytest-service
+spec:
+  selector:
+    app: volvocarsafetytest
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000

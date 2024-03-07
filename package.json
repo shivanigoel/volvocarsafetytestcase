@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "allure-playwright": "^2.13.0",
+    "playwright": "^1.42.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.42.1",
+    "@types/node": "^20.11.24",
+    "allure-commandline": "^2.27.0"
+  },
+  "scripts": {
+    "test": "playwright test tests"
+  }
+}
